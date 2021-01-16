@@ -1,0 +1,62 @@
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8"><h4>Öğlen Menüsü</h4>
+      <hr>
+      <table class="table">
+        <thead>
+          <td>Yemek Adı</td>
+          <td>Gram</td>
+          <td>Kalori</td>
+          <td>Kayıt Tarihi</td>
+          <td>Düzenleme Tarihi</td>
+          <td>Düzenle</td>
+          <td>Sil</td>
+        </thead>
+        <tbody>
+          <tr *ngFor="let kayit of kayitlar">
+            <td>{{kayit.yemekadi}}</td>
+            <td>{{kayit.gram}}</td>
+            <td>{{kayit.kalori}}</td>
+            <td>{{kayit.kayTarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td>{{kayit.duzTarih | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+            <td><button class="btn btn-outline-warning" (click)="KayitDuzenle(kayit)">Düzenle</button></td>
+            <td><button class="btn btn-outline-danger" (click)="KayitSil(kayit)">Sil</button></td>
+
+
+          </tr>
+
+        </tbody>
+
+      </table>
+    </div>
+    <div class="col-md-4"><h4>Menü Düzenle</h4>
+      <hr>
+      <form #frm="ngForm" (submit)="Kaydet()">
+        <div class="form-group">
+          <label>Yemek Adı</label>
+          <input type="text" name="yemekadi" class="form-control" [(ngModel)]="secKayit.yemekadi" required>
+          <input type="hidden" name="key" class="form-control" [(ngModel)]="secKayit.key">
+        </div>
+        <div class="form-group">
+          <label>Gram</label>
+          <input type="text" name="gram" class="form-control" [(ngModel)]="secKayit.gram" required>
+        </div>
+        <div class="form-group">
+          <label>Kalori</label>
+          <input type="text" name="kalori" class="form-control" [(ngModel)]="secKayit.kalori" required>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Kaydet" class="btn btn-outline-success" [disabled]="frm.invalid">
+        
+        </div>
+        <div class="form-group">
+          <button class="btn btn-outline-danger" (click)="OturumKapat()" >Oturum Kapat</button>
+        </div>
+
+      </form>
+      
+      <div [ngClass]="sonuc.islem ? 'alert alert-success':'alert alert-danger'" *ngIf="sonuc.mesaj?.length>0">
+        {{sonuc.mesaj}}</div>
+    </div>
+  </div>
+</div>
